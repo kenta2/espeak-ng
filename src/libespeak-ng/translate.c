@@ -1489,7 +1489,7 @@ void TranslateClause(Translator *tr, int *tone_out, char **voice_change)
 		int c_temp;
 		char *pn;
 		char *pw;
-		char number_buf[150];
+		char number_buf[150];  // make this bigger?
 		WORD_TAB num_wtab[50]; // copy of 'words', when splitting numbers into parts
 
 		// start speaking at a specified word position in the text?
@@ -1531,7 +1531,7 @@ void TranslateClause(Translator *tr, int *tone_out, char **voice_change)
 		for (n_digits = 0; iswdigit(word[n_digits]); n_digits++) // count consecutive digits
 			;
 
-		if (n_digits > 4 && n_digits <= 32) {
+		if (n_digits > 4 && n_digits <= 32) {  // change 32 to 35 for decillion, but needs 64-bit
 			// word is entirely digits, insert commas and break into 3 digit "words"
 			int nw = 0;
 
