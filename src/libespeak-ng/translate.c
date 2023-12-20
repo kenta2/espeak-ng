@@ -1531,7 +1531,7 @@ void TranslateClause(Translator *tr, int *tone_out, char **voice_change)
 		for (n_digits = 0; iswdigit(word[n_digits]); n_digits++) // count consecutive digits
 			;
 
-		if (n_digits > 4 && n_digits <= 32) {  // change 32 to 35 for decillion, but needs 64-bit
+		if (n_digits > 4 && n_digits <= 36) {  // change 32 to 36 for decillion, but needs 64-bit
 			// word is entirely digits, insert commas and break into 3 digit "words"
 			int nw = 0;
 
@@ -1550,7 +1550,7 @@ void TranslateClause(Translator *tr, int *tone_out, char **voice_change)
 
 				*pn++ = c;
 				nx--;
-				if ((nx > 0) && (tr->langopts.break_numbers & (1U << nx))) {
+				if ((nx > 0) && (tr->langopts.break_numbers & (1UL << nx))) {
 					memcpy(&num_wtab[nw++], &words[ix], sizeof(WORD_TAB)); // copy the 'words' entry for each word of numbers
 
 					if (tr->langopts.thousands_sep != ' ')
@@ -1558,12 +1558,12 @@ void TranslateClause(Translator *tr, int *tone_out, char **voice_change)
 					*pn++ = ' ';
 
 					if ((words[ix].flags & FLAG_INDIVIDUAL_DIGITS) == 0) {
-						if (tr->langopts.break_numbers & (1 << (nx-1))) {
+						if (tr->langopts.break_numbers & (1L << (nx-1))) {
 							// the next group only has 1 digits, make it three
 							*pn++ = '0';
 							*pn++ = '0';
 						}
-						if (tr->langopts.break_numbers & (1 << (nx-2))) {
+						if (tr->langopts.break_numbers & (1L << (nx-2))) {
 							// the next group only has 2 digits (eg. Indian languages), make it three
 							*pn++ = '0';
 						}
